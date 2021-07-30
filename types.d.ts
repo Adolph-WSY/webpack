@@ -5755,26 +5755,31 @@ type LibraryName = string | string[] | LibraryCustomUmdObject;
 declare interface LibraryOptions {
 	/**
 	 * Add a comment in the UMD wrapper.
+	 * 在 UMD 包装器中添加注释。
 	 */
 	auxiliaryComment?: string | LibraryCustomUmdCommentObject;
 
 	/**
 	 * Specify which export should be exposed as library.
+	 * 指定作为模块公开的导出库
 	 */
 	export?: string | string[];
 
 	/**
 	 * The name of the library (some types allow unnamed libraries too).
+	 * 库名/允许未命名
 	 */
 	name?: string | string[] | LibraryCustomUmdObject;
 
 	/**
 	 * Type of library (types included by default are 'var', 'module', 'assign', 'assign-properties', 'this', 'window', 'self', 'global', 'commonjs', 'commonjs2', 'commonjs-module', 'amd', 'amd-require', 'umd', 'umd2', 'jsonp', 'system', but others might be added by plugins).
+	 * 库类型，与远程库的打包类型匹配
 	 */
 	type: string;
 
 	/**
 	 * If `output.libraryTarget` is set to umd and `output.library` is set, setting this to true will name the AMD module.
+	 * 如果‘ output.libraryTarget’设置为 umd，‘ output.library’设置为 true，则模块将按 AMD 被命名。
 	 */
 	umdNamedDefine?: boolean;
 }
@@ -6427,26 +6432,31 @@ declare class ModuleFederationPlugin {
 declare interface ModuleFederationPluginOptions {
 	/**
 	 * Modules that should be exposed by this container. When provided, property name is used as public name, otherwise public name is automatically inferred from request.
+	 * 这个容器应该公开的模块。如果提供了属性名，则使用属性名作为公共名，否则将从请求中自动推断公共名。
 	 */
 	exposes?: (string | ExposesObject)[] | ExposesObject;
 
 	/**
 	 * The filename of the container as relative path inside the `output.path` directory.
+	 * 容器的文件名作为‘ output.path’目录中的相对路径。
 	 */
 	filename?: string;
 
 	/**
 	 * Options for library.
+	 * 库参数
 	 */
 	library?: LibraryOptions;
 
 	/**
 	 * The name of the container.
+	 * 容器名称
 	 */
 	name?: string;
 
 	/**
 	 * The external type of the remote containers.
+	 * 远程容器的外部类型
 	 */
 	remoteType?:
 		| "var"
@@ -6472,21 +6482,25 @@ declare interface ModuleFederationPluginOptions {
 
 	/**
 	 * Container locations and request scopes from which modules should be resolved and loaded at runtime. When provided, property name is used as request scope, otherwise request scope is automatically inferred from container location.
+	 * 容器位置和请求范围，模块应从中解析并在运行时加载。如果提供了属性名，则使用属性名作为请求范围，否则将自动从容器位置推断请求范围。
 	 */
 	remotes?: (string | RemotesObject)[] | RemotesObject;
 
 	/**
 	 * The name of the runtime chunk. If set a runtime chunk with this name is created or an existing entrypoint is used as runtime.
+	 * 运行时块的名称。如果创建具有此名称的运行时块，或者将现有入口点用作运行时。
 	 */
 	runtime?: string | false;
 
 	/**
 	 * Share scope name used for all shared modules (defaults to 'default').
+	 * 用于所有共享模块的共享范围名称(默认为“ default”)。
 	 */
 	shareScope?: string;
 
 	/**
 	 * Modules that should be shared in the share scope. When provided, property names are used to match requested modules in this compilation.
+	 * 应在共享范围中共享的模块。如果提供了属性名，则使用属性名来匹配此编译中请求的模块。
 	 */
 	shared?: (string | SharedObject)[] | SharedObject;
 }
@@ -8769,21 +8783,25 @@ declare interface RenderBootstrapContext {
 
 	/**
 	 * the runtime template
+	 * 运行时模板
 	 */
 	runtimeTemplate: RuntimeTemplate;
 
 	/**
 	 * the module graph
+	 * TDDO 模板地图
 	 */
 	moduleGraph: ModuleGraph;
 
 	/**
 	 * the chunk graph
+	 * chunk 地图
 	 */
 	chunkGraph: ChunkGraph;
 
 	/**
 	 * hash to be used for render call
+	 * 渲染请求用到的 hash
 	 */
 	hash: string;
 }
@@ -10171,46 +10189,56 @@ type Shared = (string | SharedObject)[] | SharedObject;
 declare interface SharedConfig {
 	/**
 	 * Include the provided and fallback module directly instead behind an async request. This allows to use this shared module in initial load too. All possible shared modules need to be eager too.
+	 * 直接在异步请求后面包含提供的模块和失败模块。这也允许在初始加载时使用这个共享模块。所有可能的共享模块也需要渴望。
 	 */
 	eager?: boolean;
 
 	/**
 	 * Provided module that should be provided to share scope. Also acts as fallback module if no shared module is found in share scope or version isn't valid. Defaults to the property name.
+	 * 提供的模块，应提供共享范围。如果在共享范围中没有发现共享模块，或者版本无效，则还充当回退模块。属性名的默认值。
 	 */
 	import?: string | false;
 
 	/**
 	 * Package name to determine required version from description file. This is only needed when package name can't be automatically determined from request.
+	 * 软件包名称，以从描述文件确定所需的版本。只有当包名不能从请求中自动确定时，才需要这样做。
 	 */
 	packageName?: string;
 
 	/**
 	 * Version requirement from module in share scope.
+	 * 模块是从共享范围在此键下查找的。
+	 * 共享范围中模块的版本需求。
 	 */
 	requiredVersion?: string | false;
 
 	/**
 	 * Module is looked up under this key from the share scope.
+	 * 模块是从共享范围在此键下查找的。
 	 */
 	shareKey?: string;
 
 	/**
 	 * Share scope name.
+	 * 共享域名称
 	 */
 	shareScope?: string;
 
 	/**
 	 * Allow only a single version of the shared module in share scope (disabled by default).
+	 * 在共享范围中只允许共享模块的一个版本(默认情况下禁用)。
 	 */
 	singleton?: boolean;
 
 	/**
 	 * Do not accept shared module if version is not valid (defaults to yes, if local fallback module is available and shared module is not a singleton, otherwise no, has no effect if there is no required version specified).
+	 * 强制校验版本有效性
 	 */
 	strictVersion?: boolean;
 
 	/**
 	 * Version of the provided module. Will replace lower matching versions, but not higher.
+	 * 版本，只会影响版本升级，不会降级
 	 */
 	version?: string | false;
 }
